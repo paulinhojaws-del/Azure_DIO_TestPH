@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <meta charset="utf-8"/>
+  <title>Azure Translator Demo</title>
+  <body style="font-family: system-ui; max-width: 700px">
+    <h2>Azure Translator Demo</h2>
+    <p>Frontend simples que chama o endpoint local <code>/translate</code> (a chave NUNCA vai para o navegador).</p>
+    <input id="text" placeholder="Texto de entrada" style="width: 100%" />
+    <p>
+      Traduzir para:
+      <input id="to" value="en" style="width: 60px" />
+      <button id="btn">Traduzir</button>
+    </p>
+    <pre id="out" style="background:#111;color:#0f0;padding:12px"></pre>
+    <script>
+      btn.onclick = async () => {
+        const q = new URLSearchParams({ text: text.value, to: to.value });
+        const res = await fetch(`/translate?${q.toString()}`);
+        const json = await res.json();
+        out.textContent = JSON.stringify(json, null, 2);
+      };
+    </script>
+  </body>
+</html>
